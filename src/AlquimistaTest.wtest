@@ -6,12 +6,15 @@ describe "Alquimistas test"
 	fixture
 	{
 		bomba.danio(102)
+		bomba.agregarMaterial(florRoja)//le agrego un material mistico
+		bomba.agregarMaterial(uni) //le agrego otro material mistico
 		pocion.nivelDeCuracion(52)
 		pocion.agregarMaterial(florRoja) //le agrego un material mistico
 		pocion.agregarMaterial(polvora) //le agrego un material 
 		debilitador.potencia(0)
 		debilitador.agregarMaterial(florRoja) // le agrego un material mistico
 		debilitador.agregarMaterial(uni) //le agrego otro material mistico
+		//debilitador.agregarMaterial(polvora) //le agrego otro material
 	}
 	test "Un Alquimista tiene criterio si la mitad de sus items de combate son efectivos"
 	{
@@ -61,4 +64,14 @@ describe "Alquimistas test"
 		alquimista.agregarItemDeCombate(pocion)
 		assert.notEquals(137,alquimista.capacidadOfensiva()) //51+62 = 113
 	}
+	
+	test "Un alquimista es profesional si la calidad promedio de sus items es mayor a 50 y todos sus items son de combate y es buen explorador"
+	{
+		alquimista.agregarItemDeCombate(bomba)
+		alquimista.agregarItemDeCombate(pocion)
+		alquimista.agregarItemDeCombate(bomba)
+		alquimista.agregarItemDeCombate(pocion)
+		//alquimista.agregarItemDeRecoleccion(bolsaDeViento)
+		assert.that(alquimista.esProfesional())
+	}	
 }

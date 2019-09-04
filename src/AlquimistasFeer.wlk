@@ -50,6 +50,43 @@ object alquimista{
 			unItem => unItem.capacidad()
 			})
 	}
+//4)
+	method esProfesional()
+	{
+		return self.calidadPromedioDeSusItems() > 50 and self.todosSusItemsDeCombateEfectivos() 
+		and self.esBuenExplorador()
+	}	
+	
+	method calidadPromedioDeSusItems()
+	{
+		return self.sumaDeLaCalidadDeTodosSusItems()/self.cantidadDeTodosSusItems()
+	}
+											  
+	method sumaDeLaCalidadDeTodosSusItems()					
+	{
+		return self.calidadItemsDeCombate() + self.calidadItemsDeRecoleccion()
+	}
+	method calidadItemsDeCombate()
+	{
+		return itemsDeCombate.sum({
+			unItem => unItem.calidad()
+		})
+	}
+	method calidadItemsDeRecoleccion()
+	{
+		return itemsDeRecoleccion.sum({
+			unItem => unItem.calidad()
+		})
+	}													 
+	method cantidadDeTodosSusItems()
+	{
+		return itemsDeCombate.size() + itemsDeRecoleccion.size() 
+	}
+	
+	method todosSusItemsDeCombateEfectivos()
+	{
+		return self.sonEfectivos() == self.cantidadItemsDeCombate()
+	}
 }
 
 object bomba
@@ -80,7 +117,7 @@ object bomba
 	{
 		return materiales.min({
 			unMaterial => unMaterial.calidad()
-		})
+		}).calidad()
 	}
 }
 
@@ -126,7 +163,7 @@ object pocion
 	{
 		if(self.cantidadMaterialesMisticos() != 0)
 		{
-			return self.materialesMisticos().head()
+			return self.materialesMisticos().head().calidad()
 		}
 		else
 			return materiales.head().calidad()	
@@ -181,17 +218,39 @@ object debilitador
 		return materiales.size()
 	}
 	
-//	method calidad()
-//	{
-//		
-//	}
+	method calidad()
+	{
+		return self.sumaDeLosDosMaterialesDeMayorCalidad() / 2		
+	}
+	
+	method sumaDeLosDosMaterialesDeMayorCalidad()
+	{
+		return self.materialDeMayorCalidad().calidad() + self.segundoMaterialDeMayorCalidad().calidad()
+	}
+	
+	method materialDeMayorCalidad()
+	{
+		return materiales.max({
+			unMaterial => unMaterial.calidad()
+		})
+	}
+	method segundoMaterialDeMayorCalidad()
+	{
+		return self.materialesSinElDeMayorCalidad().max({
+			unMaterial =>unMaterial.calidad()
+		})
+	}
+	method materialesSinElDeMayorCalidad()
+	{
+	 return materiales.copyWithout(self.materialDeMayorCalidad())
+	}
 }
-//Materiales
+//Materiales, donde se supone algunos materiales misticos y otros no, y todos retonan algun valor para el mensaje calidad()
 object florRoja
 {
 	method esMistico()
 	{
-		return true
+		return true  
 	}
 	method calidad()
 	{
@@ -219,20 +278,45 @@ object polvora
 	}
 	method calidad()
 	{
-		return 5
+		return 10
 	}
 }
 
-//Items de recoleccion
+//Items de recoleccion, entienden el mensaje calidad
 object caniaDePescar
 {
+	var materiales = []
 	
+	method calidad()
+	{
+		return 30 + self.calidadDeMateriales()*0.1
+	}
+	method calidadDeMateriales(){
+		return 10
+		}
 }
 object redAtrapaInsectos
 {
-	
+	var materiales = []	
+	method calidad()
+	{
+		return 30 + self.calidadDeMateriales()*0.1
+	}
+	method calidadDeMateriales()
+	{
+		return 5
+	}
 }
 object bolsaDeViento
 {
+	var materiales = []
 	
+	method calidad()
+	{
+		return 30 + self.calidadDeMateriales()*0.1
+	}	
+	method calidadDeMateriales()
+	{
+		return 1
+	}
 }
