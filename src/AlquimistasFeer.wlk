@@ -242,8 +242,8 @@ object debilitador
 	}
 	method materialesSinElDeMayorCalidad()
 	{
-	 return materiales.copyWithout(self.materialDeMayorCalidad())
-	}
+	 return materiales.copyWithout(self.materialDeMayorCalidad()) //Para copyWithout si o si la lista debe tener 2 o mas objetos
+	}															  //y ademas saca sus elementos repetidos. por lo que, no tan eficiente
 }
 //Materiales, donde se supone algunos materiales misticos y otros no, y todos retonan algun valor para el mensaje calidad()
 object florRoja
@@ -296,7 +296,22 @@ object polvora
 		return calidad
 	}
 }
-
+object unMaterialNoMistico  // Creado para el test del punto 4
+{
+	var calidad = 0
+	method esMistico()
+	{
+		return false  
+	}
+	method calidad(valor)
+	{
+		calidad=valor
+	}
+	method calidad()
+	{
+		return calidad
+	}
+}
 //Items de recoleccion, entienden el mensaje calidad
 object caniaDePescar
 {

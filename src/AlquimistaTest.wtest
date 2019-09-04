@@ -99,4 +99,22 @@ describe "Alquimistas test"
 		assert.that(alquimista.esBuenExplorador())
 	}
 	
+	test "Entonces un Alquimista es profesional si cumple con todas las condiciones anteriores simultaneamente"
+	{
+		alquimista.agregarItemDeCombate(bomba)
+		alquimista.agregarItemDeCombate(pocion)
+		alquimista.agregarItemDeCombate(debilitador)
+		alquimista.agregarItemDeRecoleccion(caniaDePescar)
+		alquimista.agregarItemDeRecoleccion(redAtrapaInsectos)
+		alquimista.agregarItemDeRecoleccion(bolsaDeViento)
+		debilitador.agregarMaterial(unMaterialNoMistico)//Material creado para el test
+		debilitador.agregarMaterial(polvora) //le agrego otro material, no son misticos, para que sea efectivo el item
+		debilitador.potencia(10)
+		florRoja.calidad(50)
+		uni.calidad(100)
+		polvora.calidad(120)
+		unMaterialNoMistico.calidad(100)  // 50 + 50 + 110 + 30.1+ 30.5 + 31 = 301.6/6 = 50.266666 > 50
+		assert.that(alquimista.esProfesional())
+	}
+	
 }
