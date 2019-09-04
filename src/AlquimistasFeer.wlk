@@ -69,7 +69,7 @@ object bomba
 
 object pocion
 {
-	var nivelDeCuracion = 55
+	var nivelDeCuracion = 50
 	var materiales = []
 	
 	method agregarMaterial(unMaterial)
@@ -164,17 +164,41 @@ object debilitador
 		return materiales.size()
 	}
 	
-	method calidad()
-	{
-		
-	}
+//	method calidad()
+//	{
+//		
+//	}
 }
 
-object material
+object florRoja
 {
 	method esMistico()
 	{
 		return true
+	}
+	method calidad()
+	{
+		return 5
+	}
+}
+
+object uni
+{
+	method esMistico()
+	{
+		return true
+	}
+	method calidad()
+	{
+		return 7
+	}
+}
+
+object polvora
+{
+	method esMistico()
+	{
+		return false
 	}
 	method calidad()
 	{

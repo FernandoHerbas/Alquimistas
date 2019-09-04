@@ -3,15 +3,29 @@ import AlquimistasFeer.*
 
 describe "Alquimistas test"
 {
+	fixture
+	{
+		bomba.danio(101)
+		pocion.nivelDeCuracion(51)
+		pocion.agregarMaterial(florRoja)
+		debilitador.potencia(0)
+		debilitador.agregarMaterial(florRoja)
+	}
 	test "Un Alquimista tiene criterio"
 	{
 		alquimista.agregarItemDeCombate(bomba)
+		alquimista.agregarItemDeCombate(bomba)
+		alquimista.agregarItemDeCombate(pocion)
+		alquimista.agregarItemDeCombate(pocion)
 		assert.that(alquimista.tieneCriterio())
 	}
 	
-	test "Un Alquimista no tiene criterio si "
+	test "Un Alquimista no tiene criterio si la mitad de sus items de combate no son efectivos "
 	{
 		alquimista.agregarItemDeCombate(bomba)
-		assert.that(alquimista.tieneCriterio())
+		alquimista.agregarItemDeCombate(debilitador)
+		alquimista.agregarItemDeCombate(debilitador)
+		alquimista.agregarItemDeCombate(debilitador)
+		assert.notThat(alquimista.tieneCriterio())
 	}
 }
