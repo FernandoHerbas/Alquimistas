@@ -43,6 +43,13 @@ object alquimista{
 	{
 		return itemsDeRecoleccion.asSet().size()	//deja una ocurrencia de cada elemento
 	}
+//3)	
+	method capacidadOfensiva()
+	{
+		return itemsDeCombate.sum({
+			unItem => unItem.capacidad()
+			})
+	}
 }
 
 object bomba

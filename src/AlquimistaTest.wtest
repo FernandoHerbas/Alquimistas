@@ -5,11 +5,13 @@ describe "Alquimistas test"
 {
 	fixture
 	{
-		bomba.danio(101)
-		pocion.nivelDeCuracion(51)
-		pocion.agregarMaterial(florRoja)
+		bomba.danio(102)
+		pocion.nivelDeCuracion(52)
+		pocion.agregarMaterial(florRoja) //le agrego un material mistico
+		pocion.agregarMaterial(polvora) //le agrego un material 
 		debilitador.potencia(0)
-		debilitador.agregarMaterial(florRoja)
+		debilitador.agregarMaterial(florRoja) // le agrego un material mistico
+		debilitador.agregarMaterial(uni) //le agrego otro material mistico
 	}
 	test "Un Alquimista tiene criterio si la mitad de sus items de combate son efectivos"
 	{
@@ -43,5 +45,20 @@ describe "Alquimistas test"
 		alquimista.agregarItemDeRecoleccion(caniaDePescar)
 		alquimista.agregarItemDeRecoleccion(bolsaDeViento)
 		assert.notThat(alquimista.esBuenExplorador())
+	}
+	
+	test "137 es el resultado de la suma de las capacidades de los items de combate de un alquimista, su capacidad ofensiva"
+	{
+		alquimista.agregarItemDeCombate(bomba)
+		alquimista.agregarItemDeCombate(pocion)
+		alquimista.agregarItemDeCombate(debilitador)
+		assert.equals(137,alquimista.capacidadOfensiva()) //51+62+24 = 137
+	}
+	
+	test "Si le quito un item de combate a un alquimista su capacidad ofensiva NO es la misma que la anterior"
+	{
+		alquimista.agregarItemDeCombate(bomba)
+		alquimista.agregarItemDeCombate(pocion)
+		assert.notEquals(137,alquimista.capacidadOfensiva()) //51+62 = 113
 	}
 }
