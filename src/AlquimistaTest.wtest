@@ -12,12 +12,12 @@ describe "Alquimistas test"
 		pocion.agregarMaterial(florRoja) //le agrego un material mistico
 		pocion.agregarMaterial(polvora) //le agrego un material 
 		debilitador.potencia(0)
-		debilitador.agregarMaterial(florRoja) // le agrego un material mistico
-		debilitador.agregarMaterial(uni) //le agrego otro material mistico
-		//debilitador.agregarMaterial(polvora) //le agrego otro material
+		
 	}
 	test "Un Alquimista tiene criterio si la mitad de sus items de combate son efectivos"
 	{
+		debilitador.agregarMaterial(florRoja) // le agrego un material mistico
+		debilitador.agregarMaterial(uni) //le agrego otro material mistico
 		alquimista.agregarItemDeCombate(bomba)
 		alquimista.agregarItemDeCombate(bomba)
 		alquimista.agregarItemDeCombate(pocion)
@@ -27,6 +27,8 @@ describe "Alquimistas test"
 	
 	test "Un Alquimista NO tiene criterio si la mitad de sus items de combate no son efectivos "
 	{
+		debilitador.agregarMaterial(florRoja) // le agrego un material mistico
+		debilitador.agregarMaterial(uni) //le agrego otro material mistico
 		alquimista.agregarItemDeCombate(bomba)
 		alquimista.agregarItemDeCombate(debilitador)
 		alquimista.agregarItemDeCombate(debilitador)
@@ -52,6 +54,8 @@ describe "Alquimistas test"
 	
 	test "137 es el resultado de la suma de las capacidades de los items de combate de un alquimista, su capacidad ofensiva"
 	{
+		debilitador.agregarMaterial(florRoja) // le agrego un material mistico
+		debilitador.agregarMaterial(uni) //le agrego otro material mistico
 		alquimista.agregarItemDeCombate(bomba)
 		alquimista.agregarItemDeCombate(pocion)
 		alquimista.agregarItemDeCombate(debilitador)
@@ -65,13 +69,34 @@ describe "Alquimistas test"
 		assert.notEquals(137,alquimista.capacidadOfensiva()) //51+62 = 113
 	}
 	
-	test "Un alquimista es profesional si la calidad promedio de sus items es mayor a 50 y todos sus items son de combate y es buen explorador"
+	test "Punto 4, inicializo para verificar cada condicion.
+			Un alquimista es profesional si la calidad promedio de sus items es mayor a 50"
 	{
 		alquimista.agregarItemDeCombate(bomba)
 		alquimista.agregarItemDeCombate(pocion)
+		alquimista.agregarItemDeCombate(debilitador)
+		alquimista.agregarItemDeRecoleccion(bolsaDeViento)
+		debilitador.agregarMaterial(florRoja) // le agrego un material mistico
+		debilitador.agregarMaterial(uni) //le agrego otro material mistico
+		debilitador.agregarMaterial(polvora) //le agrego otro material
+		florRoja.calidad(5)
+		uni.calidad(10)
+		polvora.calidad(12)
+		assert.equals(12.775,alquimista.calidadPromedioDeSusItems())	//bomba=5, pocion=5, debilitador=11,bolsaDeViento=30.1.
+	}
+	
+	test " Y Todos los items de combate de un alquimista son efectivos y es buen explorador"
+	{
 		alquimista.agregarItemDeCombate(bomba)
 		alquimista.agregarItemDeCombate(pocion)
-		//alquimista.agregarItemDeRecoleccion(bolsaDeViento)
-		assert.that(alquimista.esProfesional())
-	}	
+		alquimista.agregarItemDeCombate(debilitador)
+		debilitador.potencia(10)
+		debilitador.agregarMaterial(polvora) // le agrego un material
+		alquimista.agregarItemDeRecoleccion(caniaDePescar)
+		alquimista.agregarItemDeRecoleccion(redAtrapaInsectos)
+		alquimista.agregarItemDeRecoleccion(bolsaDeViento)
+		assert.that(alquimista.todosSusItemsDeCombateEfectivos())
+		assert.that(alquimista.esBuenExplorador())
+	}
+	
 }

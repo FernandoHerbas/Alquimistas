@@ -80,12 +80,12 @@ object alquimista{
 	}													 
 	method cantidadDeTodosSusItems()
 	{
-		return itemsDeCombate.size() + itemsDeRecoleccion.size() 
+		return self.cantidadItemsDeCombate() + itemsDeRecoleccion.size() 
 	}
 	
 	method todosSusItemsDeCombateEfectivos()
 	{
-		return self.sonEfectivos() == self.cantidadItemsDeCombate()
+		return self.sonEfectivos().size() == self.cantidadItemsDeCombate()
 	}
 }
 
@@ -161,7 +161,7 @@ object pocion
 	
 	method calidad()
 	{
-		if(self.cantidadMaterialesMisticos() != 0)
+		if(self.cantidadMaterialesMisticos()!=0)
 		{
 			return self.materialesMisticos().head().calidad()
 		}
@@ -248,45 +248,58 @@ object debilitador
 //Materiales, donde se supone algunos materiales misticos y otros no, y todos retonan algun valor para el mensaje calidad()
 object florRoja
 {
+	var calidad = 0
 	method esMistico()
 	{
 		return true  
 	}
+	method calidad(valor)
+	{
+		calidad=valor
+	}
 	method calidad()
 	{
-		return 5
+		return calidad
 	}
 }
 
 object uni
 {
+	var calidad=0
 	method esMistico()
 	{
 		return true
 	}
+	method calidad(valor)
+	{
+		calidad=valor
+	}
 	method calidad()
 	{
-		return 7
+		return calidad
 	}
 }
 
 object polvora
 {
+	var calidad=0
 	method esMistico()
 	{
 		return false
 	}
+	method calidad(valor)
+	{
+		calidad=valor
+	}
 	method calidad()
 	{
-		return 10
+		return calidad
 	}
 }
 
 //Items de recoleccion, entienden el mensaje calidad
 object caniaDePescar
 {
-	var materiales = []
-	
 	method calidad()
 	{
 		return 30 + self.calidadDeMateriales()*0.1
@@ -297,7 +310,6 @@ object caniaDePescar
 }
 object redAtrapaInsectos
 {
-	var materiales = []	
 	method calidad()
 	{
 		return 30 + self.calidadDeMateriales()*0.1
@@ -309,8 +321,6 @@ object redAtrapaInsectos
 }
 object bolsaDeViento
 {
-	var materiales = []
-	
 	method calidad()
 	{
 		return 30 + self.calidadDeMateriales()*0.1
