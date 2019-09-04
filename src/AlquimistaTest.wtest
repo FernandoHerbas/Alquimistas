@@ -1,0 +1,17 @@
+import AlquimistasFeer.*
+
+
+describe "Alquimistas test"
+{
+	test "Un Alquimista tiene criterio"
+	{
+		alquimista.agregarItemDeCombate(bomba)
+		assert.that(alquimista.tieneCriterio())
+	}
+	
+	test "Un Alquimista no tiene criterio si "
+	{
+		alquimista.agregarItemDeCombate(bomba)
+		assert.that(alquimista.tieneCriterio())
+	}
+}
