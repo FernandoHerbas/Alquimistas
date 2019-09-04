@@ -33,6 +33,16 @@ object alquimista{
 			unItem => unItem.esEfectivo()
 		})
 	}
+//2) Saber si son buenos exploradores, esto si cumple si poseen al menos tres tipos diferentes de items de recoleccion
+	method esBuenExplorador()
+	{
+		return self.cantidadItemsDeRecoleccionDiferentes() >= 3
+	}
+	
+	method cantidadItemsDeRecoleccionDiferentes()
+	{
+		return itemsDeRecoleccion.asSet().size()	//deja una ocurrencia de cada elemento
+	}
 }
 
 object bomba
@@ -169,7 +179,7 @@ object debilitador
 //		
 //	}
 }
-
+//Materiales
 object florRoja
 {
 	method esMistico()
@@ -204,4 +214,18 @@ object polvora
 	{
 		return 5
 	}
+}
+
+//Items de recoleccion
+object caniaDePescar
+{
+	
+}
+object redAtrapaInsectos
+{
+	
+}
+object bolsaDeViento
+{
+	
 }

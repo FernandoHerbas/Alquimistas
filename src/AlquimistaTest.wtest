@@ -11,7 +11,7 @@ describe "Alquimistas test"
 		debilitador.potencia(0)
 		debilitador.agregarMaterial(florRoja)
 	}
-	test "Un Alquimista tiene criterio"
+	test "Un Alquimista tiene criterio si la mitad de sus items de combate son efectivos"
 	{
 		alquimista.agregarItemDeCombate(bomba)
 		alquimista.agregarItemDeCombate(bomba)
@@ -20,12 +20,28 @@ describe "Alquimistas test"
 		assert.that(alquimista.tieneCriterio())
 	}
 	
-	test "Un Alquimista no tiene criterio si la mitad de sus items de combate no son efectivos "
+	test "Un Alquimista NO tiene criterio si la mitad de sus items de combate no son efectivos "
 	{
 		alquimista.agregarItemDeCombate(bomba)
 		alquimista.agregarItemDeCombate(debilitador)
 		alquimista.agregarItemDeCombate(debilitador)
 		alquimista.agregarItemDeCombate(debilitador)
 		assert.notThat(alquimista.tieneCriterio())
+	}
+	
+	test "Un alquimista es buen explorador si posee al menos tres tipos diferentes de items de recoleccion"
+	{
+		alquimista.agregarItemDeRecoleccion(caniaDePescar)
+		alquimista.agregarItemDeRecoleccion(redAtrapaInsectos)
+		alquimista.agregarItemDeRecoleccion(bolsaDeViento)
+		assert.that(alquimista.esBuenExplorador())
+	}
+	
+	test "Un alquimista NO es buen explorador si posee menos de tres tipos diferentes de items de recoleccion"
+	{
+		alquimista.agregarItemDeRecoleccion(caniaDePescar)
+		alquimista.agregarItemDeRecoleccion(caniaDePescar)
+		alquimista.agregarItemDeRecoleccion(bolsaDeViento)
+		assert.notThat(alquimista.esBuenExplorador())
 	}
 }
